@@ -1,0 +1,22 @@
+{
+    "name": "malico/momo",
+    "description": "Addon to ease MTN mobile payment.",
+    "license": "MIT",
+    "authors": [
+    {
+        "name": "Malico",
+        "email": "malico.yong@gmail.com"
+    }],
+    "require":
+    {
+        "php": "^7.1",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "autoload":
+    {
+        "psr-4":
+        {
+            "Momo\\": "src/"
+        }
+    }
+}
