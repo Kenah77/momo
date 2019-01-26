@@ -1,6 +1,7 @@
 {
     "name": "malico/momo",
-    "description": "Addon to ease MTN mobile payment.",
+    "description": "Laravel Addon to ease MTN mobile payment.",
+    "keywords": ["Laravel", "Mobile Money", "Cameroon", "MTN", "MTN Cameroon"],
     "license": "MIT",
     "authors": [
     {
@@ -10,13 +11,23 @@
     "require":
     {
         "php": "^7.1",
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^6.3",
+        "laravel/framework": "~5.7"
     },
     "autoload":
     {
         "psr-4":
         {
             "Momo\\": "src/"
+        }
+    },
+    "extra":
+    {
+        "laravel":
+        {
+            "providers": [
+                "Momo\\Support\\MomoServiceProvider"
+            ]
         }
     }
 }
