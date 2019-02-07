@@ -2,10 +2,10 @@
 
 return [
 
-	/**
-	 * Developer used in registering account on MTN 
-	 */
-	'email' => env('MOMO_EMAIL'),
+    /**
+     * Developer email used in registering account on MTN Developer Website
+     */
+    'email' => env('MOMO_EMAIL'),
 
 
 ];

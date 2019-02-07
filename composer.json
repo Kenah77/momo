@@ -1,11 +1,11 @@
 {
     "name": "malico/momo",
     "description": "Laravel Addon to ease MTN mobile payment.",
-    "keywords": ["Laravel", "Mobile Money", "Cameroon", "MTN", "MTN Cameroon"],
+    "keywords": ["Laravel", "Mobile Money", "Cameroon", "MTN", "MTN Cameroon", "momo"],
     "license": "MIT",
     "authors": [
     {
-        "name": "Malico",
+        "name": "Ndifon Desmond Yong",
         "email": "malico.yong@gmail.com"
     }],
     "require":
