@@ -2,10 +2,10 @@
 
 namespace Momo;
 
-use Functions;
-use Variables;
+use Momo\Support\Traits\Variables;
+use Momo\Support\Traits\Functions;
 
-class Momo{
-	use Variables, Functions;
-
+class Momo
+{
+    use Variables, Functions;
 }
