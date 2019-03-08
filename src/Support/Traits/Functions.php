@@ -2,30 +2,69 @@
 
 namespace Momo\Support\Traits;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
+use Curl\Curl;
+use Momo\Model\Transaction;
 
 trait Functions
 {
-    protected $query = [];
+    /**
+     * Create new MOMO Request
+     * @param string, number  $tel   Client Telephone Number
+     * @param  integer $price
+     */
+    public function __construct($tel, $price = null)
+    {
+        $this->tel = $tel;
+        $this->amount = $price ?? config('momo.default_price');
+    }
 
+    /**
+     * Make Transaction and Record
+     * @return Transaction
+     */
     public function pay()
     {
-        $this->query['query'] = [
+        $connection = new Curl();
+
+        $query = [
             'idbouton' => $this->idbouton,
             'typebouton' => $this->typebouton,
             '_amount' => $this->amount,
             '_tel' => $this->tel,
             '_clP' => $this->cpl,
-            '_email' => $this->email
+            '_email' => $this->email ?? config('momo.email')
         ];
-        $client = new Client();
-        $client->request(
-            'GET',
+
+        $connection->get(
             $this->url,
-            [
-                'form_params' => $this->query['query']
-            ]
+            $query
         );
+
+        if ($connection->error) {
+            abort(500);
+        } else {
+            $this->transaction = json_decode($connection->response, true);
+        }
+
+        $connection->close();
+
+        return  $this->recordTransation();
+    }
+
+    /**
+     * Save Transaction to DB
+     * @return Transaction
+     */
+    protected function recordTransation()
+    {
+        $transaction = new Transaction();
+
+        $transaction->amount = $this->transaction['Amount'];
+        $transaction->tel = $this->transaction['SenderNumber'];
+        $transaction->status = (int) $this->transaction['StatusCode'] == 1 ? true : false ;
+
+        $transaction->save();
+
+        return $transaction;
     }
 }

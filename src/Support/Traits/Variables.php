@@ -7,7 +7,7 @@ trait Variables
     protected $idbouton = 2;
 
     protected $cpl = '';
-    
+
     protected $typebouton = "PAIE";
 
     /**
@@ -17,7 +17,7 @@ trait Variables
      * @var string
      */
     protected $method="GET";
-    
+
     /**
      * Url to MTN Api
      * @var string
@@ -34,9 +34,19 @@ trait Variables
     /**
      * Amount to be Paid for Service
      *
-     * @var integer
+     * @var integer | string
      */
-    protected $amount = 100;
+    public $amount;
 
-    protected $tel = 0;
+    /**
+     * Users Telephone Number
+     * @var integer | string
+     */
+    public $tel;
+
+    /**
+     * Tmp Variable for Transaction details
+     * @var array
+     */
+    public $transaction = [];
 }
