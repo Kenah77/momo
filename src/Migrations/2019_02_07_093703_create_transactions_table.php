@@ -13,11 +13,11 @@ class CreateTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('momo_transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('tel');
-            $table->int('amount');
-            $table->boolean('status')->default('false');
+            $table->string('tel');
+            $table->integer('amount');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateTransactionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('momo_transactions');
     }
 }
