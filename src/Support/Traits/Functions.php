@@ -41,7 +41,7 @@ trait Functions
         );
 
         if ($connection->error) {
-            abort(500);
+            abort(500, "Can't connect to MTN Servers");
         } else {
             $this->transaction = json_decode($connection->response, true);
         }
@@ -62,6 +62,7 @@ trait Functions
         $transaction->amount = $this->transaction['Amount'];
         $transaction->tel = $this->transaction['SenderNumber'];
         $transaction->status = (int) $this->transaction['StatusCode'] == 1 ? true : false ;
+        $transaction->desc = ucfirst(str_replace("_", " ", strtolower($this->transaction['StatusDesc'])));
 
         $transaction->save();
 
