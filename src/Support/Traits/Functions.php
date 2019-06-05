@@ -35,6 +35,8 @@ trait Functions
             '_email' => $this->email ?? config('momo.email')
         ];
 
+        $connection->setOpt(CURLOPT_SSL_VERIFYPEER, false);
+
         $connection->get(
             $this->url,
             $query
