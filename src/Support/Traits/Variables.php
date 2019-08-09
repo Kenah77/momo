@@ -1,6 +1,6 @@
 <?php
 
-namespace Momo\Support\Traits;
+namespace Malico\Momo\Support\Traits;
 
 trait Variables
 {

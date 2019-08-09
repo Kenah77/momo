@@ -1,9 +1,9 @@
 <?php
 
-namespace Momo\Support\Traits;
+namespace Malico\Momo\Support\Traits;
 
-use Curl\Curl;
-use Momo\Model\Transaction;
+use GuzzleHttp\Client;
+use Malico\Momo\Model\Transaction;
 
 trait Functions
 {
@@ -24,7 +24,7 @@ trait Functions
      */
     public function pay()
     {
-        $connection = new Curl();
+        $client = new Client();
 
         $query = [
             'idbouton' => $this->idbouton,
@@ -35,22 +35,23 @@ trait Functions
             '_email' => $this->email ?? config('momo.email')
         ];
 
-        $connection->setOpt(CURLOPT_SSL_VERIFYPEER, false);
-
-        $connection->get(
+        $response = $client->request(
+            'GET',
             $this->url,
-            $query
+            [
+                'curl' => [
+                    CURLOPT_SSL_VERIFYPEER => false
+                ],
+                'query' => $query
+            ]
         );
 
-        if ($connection->error) {
+        if ($response->getStatusCode() != 200) {
             abort(500, "Can't connect to MTN Servers");
         } else {
-            $this->transaction = json_decode($connection->response, true);
+            $this->transaction = json_decode($response->getBody(), true);
         }
-
-        $connection->close();
-
-        return  $this->recordTransation();
+        return $this->recordTransation();
     }
 
     /**
@@ -64,7 +65,19 @@ trait Functions
         $transaction->amount = $this->transaction['Amount'];
         $transaction->tel = $this->transaction['SenderNumber'];
         $transaction->status = (int) $this->transaction['StatusCode'] == 1 ? true : false ;
-        $transaction->desc = ucfirst(str_replace("_", " ", strtolower($this->transaction['StatusDesc'])));
+        $transaction->comment = $this->transaction['OpComment'];
+        $transaction->reference = $this->transaction['ProcessingNumber'];
+        $transaction->receiver_tel =$this->transaction['ReceiverNumber'];
+        $transaction->operation_type =$this->transaction['OperationType'];
+        $transaction->transaction_id =$this->transaction['TransactionID'];
+
+        if ($this->transaction['StatusCode'] == '01') {
+            $transaction->desc = $this->transaction['StatusDesc'];
+        } elseif ($this->transaction['StatusCode'] == '100') {
+            $transaction->desc = "Transaction Denied";
+        } else {
+            $transaction->desc = "Transaction was not confirmed";
+        }
 
         $transaction->save();
 
