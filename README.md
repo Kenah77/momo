@@ -28,7 +28,7 @@ Basic
 
 namespace App\Http\Controllers;
 
-use Momo\Momo;
+use Malico\Momo\Momo;
 use Illuminate\Http\Request;
 
 class SalesController extends Controller
@@ -55,7 +55,7 @@ With Eloquent Relations
 // Eloquent Model
 namespace App;
 
-use Momo\Support\MomoTransaction;
+use Malico\Momo\Support\MomoTransaction;
 use Illuminate\Database\Eloquent\Model;
 
 class Sale extends Model
@@ -74,7 +74,7 @@ class Sale extends Model
 namespace App\Http\Controllers;
 
 use App\Sale;
-use Momo\Momo;
+use Malico\Momo\Momo;
 use Illuminate\Http\Request;
 
 class SalesController extends Controller
