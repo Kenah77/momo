@@ -11,14 +11,14 @@
     "require":
     {
         "php": "^7.1",
-        "curl/curl": "^2.2",
-        "laravel/framework": "~5.7"
+        "guzzlehttp/guzzle": "^6.3",
+        "laravel/framework": "~5.7",
     },
     "autoload":
     {
         "psr-4":
         {
-            "Momo\\": "src/"
+            "Malico\\Momo\\": "src/"
         }
     },
     "extra":
@@ -26,7 +26,7 @@
         "laravel":
         {
             "providers": [
-                "Momo\\Support\\MomoServiceProvider"
+                "Malico\\Momo\\Support\\MomoServiceProvider"
             ]
         }
     },
