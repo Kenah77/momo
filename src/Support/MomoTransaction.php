@@ -1,6 +1,6 @@
 <?php
 
-namespace Momo\Support;
+namespace  Malico\Momo\Support;
 
 trait MomoTransaction
 {
