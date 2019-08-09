@@ -11,4 +11,11 @@ class Transaction extends Model
      * @var string
      */
     protected $table = "momo_transactions";
+
+    /**
+     * Hidden Attributes for this Model
+     */
+    protected $hidden = [
+        'transaction_id', 'reference', 'receiver_tel'
+    ];
 }
