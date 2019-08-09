@@ -18,7 +18,12 @@ class CreateTransactionsTable extends Migration
             $table->string('tel');
             $table->integer('amount');
             $table->boolean('status')->default(false);
-            $table->text('desc')->nullable();
+            $table->text('desc');
+            $table->text('comment');
+            $table->string('transaction_id')->nullable();
+            $table->string('reference');
+            $table->string('receiver_tel');
+            $table->string('operation_type');
             $table->timestamps();
         });
     }

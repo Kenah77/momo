@@ -1,9 +1,9 @@
 <?php
 
-namespace Momo;
+namespace Malico\Momo;
 
-use Momo\Support\Traits\Variables;
-use Momo\Support\Traits\Functions;
+use Malico\Momo\Support\Traits\Variables;
+use Malico\Momo\Support\Traits\Functions;
 
 class Momo
 {

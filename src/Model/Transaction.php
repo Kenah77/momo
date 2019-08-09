@@ -1,6 +1,6 @@
 <?php
 
-namespace Momo\Model;
+namespace Malico\Momo\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
