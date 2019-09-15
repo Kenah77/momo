@@ -3,7 +3,7 @@
 namespace Malico\Momo\Support\Traits;
 
 use GuzzleHttp\Client;
-use Malico\Momo\Model\Transaction;
+use Malico\Momo\Exceptions\ConnectionFailure;
 
 trait Functions
 {
@@ -24,7 +24,7 @@ trait Functions
      */
     public function pay()
     {
-        $client = new Client();
+        $client = new Client(['http_errors' => false]);
 
         $query = [
             'idbouton' => $this->idbouton,
@@ -47,40 +47,45 @@ trait Functions
         );
 
         if ($response->getStatusCode() != 200) {
-            abort(500, "Can't connect to MTN Servers");
+            ConnectionFailure::failedConnection("Can't connect to MTN Servers");
+            return;
         } else {
-            $this->transaction = json_decode($response->getBody(), true);
+            $this->recordTransation(json_decode($response->getBody(), true));
+            return $this;
         }
-        return $this->recordTransation();
     }
 
     /**
      * Save Transaction to DB
      * @return Transaction
      */
-    protected function recordTransation()
+    protected function recordTransation(array $trans)
     {
-        $transaction = new Transaction();
+        $this->transaction['amount'] = $trans['Amount'];
+        $this->transaction['tel'] = $trans['SenderNumber'];
+        $this->transaction['status'] = (int) $trans['StatusCode'] == 1 ? true : false ;
+        $this->transaction['comment'] = $trans['OpComment'];
+        $this->transaction['reference'] = $trans['ProcessingNumber'];
+        $this->transaction['receiver_tel'] =$trans['ReceiverNumber'];
+        $this->transaction['operation_type'] =$trans['OperationType'];
+        $this->transaction['transaction_id'] =$trans['TransactionID'];
 
-        $transaction->amount = $this->transaction['Amount'];
-        $transaction->tel = $this->transaction['SenderNumber'];
-        $transaction->status = (int) $this->transaction['StatusCode'] == 1 ? true : false ;
-        $transaction->comment = $this->transaction['OpComment'];
-        $transaction->reference = $this->transaction['ProcessingNumber'];
-        $transaction->receiver_tel =$this->transaction['ReceiverNumber'];
-        $transaction->operation_type =$this->transaction['OperationType'];
-        $transaction->transaction_id =$this->transaction['TransactionID'];
-
-        if ($this->transaction['StatusCode'] == '01') {
-            $transaction->desc = $this->transaction['StatusDesc'];
-        } elseif ($this->transaction['StatusCode'] == '100') {
-            $transaction->desc = "Transaction Denied";
+        if ($trans['StatusCode'] == '01') {
+            $this->transaction['desc'] = $trans['StatusDesc'];
+        } elseif ($trans['StatusCode'] == '529') {
+            $this->transaction['desc'] = "Insufficient Balanced";
+        } elseif ($trans['StatusCode'] == '100') {
+            $this->transaction['desc'] = "Transaction Denied";
         } else {
-            $transaction->desc = "Transaction was not confirmed";
+            $this->transaction['desc'] = "Transaction was not confirmed";
         }
+    }
 
-        $transaction->save();
-
-        return $transaction;
+    public function __get($name)
+    {
+        if (array_key_exists($name, $this->transaction)) {
+            return $this->transaction[$name];
+        }
+        return null;
     }
 }
