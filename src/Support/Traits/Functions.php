@@ -81,11 +81,25 @@ trait Functions
         }
     }
 
+    /**
+     * Get Transacton Value
+     * @param  String $name
+     * @return String|Int|Null
+     */
     public function __get($name)
     {
         if (array_key_exists($name, $this->transaction)) {
             return $this->transaction[$name];
         }
         return null;
+    }
+
+    /**
+     * [jsonSerialize Momo Transaction]
+     * @return Array
+     */
+    public function jsonSerialize()
+    {
+        return $this->transaction;
     }
 }
