@@ -11,7 +11,7 @@ trait MomoTransaction
      */
     public function momo_transaction()
     {
-        return $this->belongsTo('Malico\Momo\Model\Transaction', 'id', config('momo.foreign_key'));
+        return $this->belongsTo('Malico\Momo\Model\Transaction', config('momo.foreign_key'));
     }
 
     /**
@@ -33,6 +33,6 @@ trait MomoTransaction
      */
     public function pay($tel = null, $amount = null)
     {
-        return  $this->momo($tel, $amount)->pay();
+        return $this->momo($tel, $amount)->pay();
     }
 }

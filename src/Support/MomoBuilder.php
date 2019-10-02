@@ -100,6 +100,8 @@ class MomoBuilder
 
         $this->owner->momo_transaction()->associate($transaction);
 
+        $this->owner->save();
+
         $this->transaction = $transaction;
     }
 
