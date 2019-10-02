@@ -18,4 +18,10 @@ class Transaction extends Model
     protected $hidden = [
         'transaction_id', 'reference', 'receiver_tel'
     ];
+
+    /**
+     * Guarded Attributes
+     * @var array
+     */
+    protected $guarded = ['id'];
 }
