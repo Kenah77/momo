@@ -36,17 +36,17 @@ trait Variables
      *
      * @var integer | string
      */
-    public $amount;
+    protected $amount;
 
     /**
      * Users Telephone Number
      * @var integer | string
      */
-    public $tel;
+    protected $tel;
 
     /**
      * Tmp Variable for Transaction details
      * @var array
      */
-    public $transaction = [];
+    protected $transaction = [];
 }
