@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 class MomoServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap app
+     * Bootstrap app.
      */
     public function boot()
     {
@@ -16,7 +16,7 @@ class MomoServiceProvider extends ServiceProvider
     }
 
     /**
-     * Publish assets and config
+     * Publish assets and config.
      */
     private function registerPublishing()
     {
@@ -26,12 +26,12 @@ class MomoServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register Package Configuration
+     * Register Package Configuration.
      */
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__."/../../config/momo.php",
+            __DIR__.'/../../config/momo.php',
             'momo'
         );
     }

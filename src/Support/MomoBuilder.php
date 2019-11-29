@@ -2,38 +2,42 @@
 
 namespace Malico\Momo\Support;
 
-use Malico\Momo\Momo;
-use Malico\Momo\Model\Transaction;
 use Illuminate\Database\Eloquent\Model;
+use Malico\Momo\Model\Transaction;
+use Malico\Momo\Momo;
 
 class MomoBuilder
 {
     /**
-     * Amount to be checkouted
-     * @var Integer
+     * Amount to be checkouted.
+     *
+     * @var int
      */
     protected $amount = 0;
 
     /**
-     * elphone Number
-     * @var STring|Integer
+     * elphone Number.
+     *
+     * @var string|int
      */
     protected $tel;
 
     /**
-     * Owner of Transaction
+     * Owner of Transaction.
+     *
      * @var Illuminate\Database\Eloquent\Model
      */
     protected $owner;
 
     /**
-     * Momo class
+     * Momo class.
+     *
      * @var Malico\Momo\Momo
      */
     protected $momo;
 
     /**
-     * Transaction
+     * Transaction.
      */
     protected $transaction;
 
@@ -45,40 +49,50 @@ class MomoBuilder
     }
 
     /**
-     * Set Amount
-     * @param  Integer $amount
-     * @return Void
+     * Set Amount.
+     *
+     * @param int $amount
+     *
+     * @return void
      */
     public function amount($amount)
     {
         $this->amount = $amount;
+
         return $this;
     }
 
     /**
-     * Telephone
-     * @param  String|Integer $tel
+     * Telephone.
+     *
+     * @param string|int $tel
+     *
      * @return void
      */
     public function tel($tel)
     {
         $this->tel = $tel;
+
         return $this;
     }
 
     /**
-     * Same as Tel
-     * @param  String $tel
+     * Same as Tel.
+     *
+     * @param string $tel
+     *
      * @return void
      */
     public function phone($tel)
     {
         $this->tel($tel);
+
         return $this;
     }
 
     /**
-     * Make Payment
+     * Make Payment.
+     *
      * @return Malico\Momo\Model\Transaction
      */
     public function pay()
@@ -91,7 +105,8 @@ class MomoBuilder
     }
 
     /**
-     * Save Transaction
+     * Save Transaction.
+     *
      * @return void
      */
     protected function save()
@@ -106,7 +121,8 @@ class MomoBuilder
     }
 
     /**
-     * Get Owner
+     * Get Owner.
+     *
      * @return Model
      */
     public function owner()

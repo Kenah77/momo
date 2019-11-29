@@ -7,7 +7,7 @@ use Malico\Momo\Momo;
 trait MomoTransaction
 {
     /**
-     * relationshp to Momo Transaction
+     * relationshp to Momo Transaction.
      */
     public function momo_transaction()
     {
@@ -15,20 +15,24 @@ trait MomoTransaction
     }
 
     /**
-     * Return MOMO Builder
-     * @param  STring|int|null $tel
-     * @param  Int|NUll $amount
+     * Return MOMO Builder.
+     *
+     * @param string|int|null $tel
+     * @param int|null        $amount
+     *
      * @return Malico\Momo\Support\MomoBuilder
      */
     public function momo($tel = null, $amount = null)
     {
-        return (new MomoBuilder($this, $tel, $amount));
+        return new MomoBuilder($this, $tel, $amount);
     }
 
     /**
-     * Make Payment
-     * @param  String|Int|Null $tel
-     * @param  Int|Null $amount
+     * Make Payment.
+     *
+     * @param string|int|null $tel
+     * @param int|null        $amount
+     *
      * @return void
      */
     public function pay($tel = null, $amount = null)
