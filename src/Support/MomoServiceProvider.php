@@ -21,8 +21,8 @@ class MomoServiceProvider extends ServiceProvider
     private function registerPublishing()
     {
         $this->publishes([
-                __DIR__.'/../../config/momo.php' => config_path('momo.php'),
-            ], 'momo-configuration');
+            __DIR__.'/../../config/momo.php' => config_path('momo.php'),
+        ], 'momo-configuration');
     }
 
     /**
