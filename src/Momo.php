@@ -8,8 +8,8 @@ use Malico\Momo\Support\Traits\Variables;
 
 class Momo implements JsonSerializable
 {
-    use Variables, Functions;
-
+    use Variables;
+    use Functions;
     /**
      * Set Email.
      *
