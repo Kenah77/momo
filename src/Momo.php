@@ -10,6 +10,7 @@ class Momo implements JsonSerializable
 {
     use Variables;
     use Functions;
+
     /**
      * Set Email.
      *
