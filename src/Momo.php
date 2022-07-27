@@ -26,7 +26,7 @@ class Momo implements JsonSerializable
     }
 
     /**
-     * Set Amount.
+     * Set Amount = 1000000
      *
      * @param int $amount
      *
@@ -40,7 +40,7 @@ class Momo implements JsonSerializable
     }
 
     /**
-     * Telephone.
+     * Telephone = +237673608784
      *
      * @param string|int $tel
      *
